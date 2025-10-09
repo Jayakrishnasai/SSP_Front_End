@@ -1,5 +1,5 @@
 pool:
-  name: 'dev-access'
+  name: 'Dev'
   
 variables:
   version: 'frontend_$(Build.BuildId)'
@@ -23,7 +23,7 @@ stages:
     - task: Docker@2
       displayName: 'Build Docker Image'
       inputs:
-        containerRegistry: 'acr_connection'
+        containerRegistry: 'devopsplines'
         repository: 'perseverance-project'
         command: 'build'
         Dockerfile: '**/Dockerfile'
@@ -41,7 +41,7 @@ stages:
     - task: Docker@2
       displayName: 'Push Docker Image' 
       inputs:
-        containerRegistry: 'acr_connection'
+        containerRegistry: 'devopsplines'
         repository: 'perseverance-project'
         command: 'push'
         tags: |
