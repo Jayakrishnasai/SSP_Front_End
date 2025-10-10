@@ -40,7 +40,7 @@ stages:
         command: 'buildAndPush'                  # Combined build+push command
         Dockerfile: '**/Dockerfile'              # Path to Dockerfile
         tags: |
-          $(version)                             # e.g. frontend_12
+          $(version)                            
 
 # ---------------------------------------------
 # 3️⃣ Clean Up Docker Images
