@@ -1,62 +1,65 @@
+# ==========================
+# Azure DevOps Pipeline: Frontend Docker Build & Push
+# ==========================
+
 pool:
   name: 'Dev'
-  
+
 variables:
   version: 'frontend_$(Build.BuildId)'
 
 stages:
+# ---------------------------------------------
+# 1️⃣ Checkout Code
+# ---------------------------------------------
 - stage: CheckoutCode
   displayName: 'Checkout Code'
   jobs:
   - job: checkout
-    displayName: 'Checkout Code'
+    displayName: 'Checkout Source Code'
     steps:
     - checkout: self
 
-- stage: BuildDockerImage
-  displayName: 'Build Docker Image'
+# ---------------------------------------------
+# 2️⃣ Build and Push Docker Image
+# ---------------------------------------------
+- stage: BuildAndPushDockerImage
+  displayName: 'Build and Push Docker Image'
   dependsOn: CheckoutCode
   jobs:
-  - job: build
-    displayName: 'Build Docker Image'
+  - job: buildAndPush
+    displayName: 'Build & Push Docker Image to ACR'
     steps:
-    - task: Docker@2
-      displayName: 'Build Docker Image'
-      inputs:
-        containerRegistry: 'devopsplines'
-        repository: 'perseverance-project'
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
-        tags: |
-          frontend_$(Build.BuildId)
-      name: buildImage
+    - checkout: self
 
-- stage: PushDockerImage
-  displayName: 'Push Docker Image'
-  dependsOn: BuildDockerImage
-  jobs:
-  - job: push
-    displayName: 'Push Docker Image to ACR'
-    steps:
     - task: Docker@2
-      displayName: 'Push Docker Image' 
+      displayName: 'Build and Push Docker Image'
       inputs:
-        containerRegistry: 'devopsplines'
-        repository: 'perseverance-project'
-        command: 'push'
+        containerRegistry: 'devopsplines'       # Service connection name to ACR
+        repository: 'perseverance-project'       # Repository name in ACR
+        command: 'buildAndPush'                  # Combined build+push command
+        Dockerfile: '**/Dockerfile'              # Path to Dockerfile
         tags: |
-          $(version)
+          $(version)                             # e.g. frontend_12
+
+# ---------------------------------------------
+# 3️⃣ Clean Up Docker Images
+# ---------------------------------------------
 - stage: CleanupDockerImages
   displayName: 'Clean Up Docker Images'
-  dependsOn: PushDockerImage
+  dependsOn: BuildAndPushDockerImage
   jobs:
   - job: cleanup
-    displayName: 'Clean Up Docker Images'
+    displayName: 'Remove Docker Images from Agent'
     steps:
     - script: |
-        docker rmi -f $(docker images -aq)
+        echo "Cleaning up local Docker images..."
+        docker rmi -f $(docker images -aq) || true
       displayName: 'Remove all Docker images'
 
+# ---------------------------------------------
+# 4️⃣ Modify and Publish Kubernetes Manifest
+# ---------------------------------------------
 - stage: ModifyAndPublishYaml
   displayName: 'Modify and Publish Kubernetes Manifest'
   dependsOn: CleanupDockerImages
@@ -64,10 +67,14 @@ stages:
   - job: modifyAndPublish
     displayName: 'Modify Kubernetes Manifest and Publish'
     steps:
+    - checkout: self
+
     - script: |
         echo "Replacing VERSION with $(version) in frontend.yml"
         sed -i "s|VERSION|$(version)|g" frontend.yml
+        echo "Modified frontend.yml content:"
         cat frontend.yml
+        mkdir -p $(Build.ArtifactStagingDirectory)
         cp frontend.yml $(Build.ArtifactStagingDirectory)/
       displayName: 'Modify Kubernetes Manifest'
 
