@@ -26,7 +26,7 @@ stages:
         containerRegistry: 'devopspline'
         repository: 'perseverance-project'
         command: 'build'
-        Dockerfile: '/Dockerfile'
+        Dockerfile: '**/Dockerfile'
         tags: |
           frontend_$(Build.BuildId)
       name: buildImage
