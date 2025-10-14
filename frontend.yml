@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: devline.azurecr.io/perseverance-project:VERSION
+        image:  devline.azurecr.io/perseverance-project:VERSION
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
