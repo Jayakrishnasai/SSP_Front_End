@@ -27,26 +27,26 @@ class App extends courses {
                         <h1>Perseverance Software Training Institute</h1>
                     </header>
                     <div className="social-buttons" style={{ display: "flex", gap: "10px", position: "absolute", top: "5px", right: "10px" }}>
-                        <a href="https://www.facebook.com/profile.php?id=61550316355738" target="_blank" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook" /></a>
-                        <a href="https://www.instagram.com/perseverance_institute/" target="_blank" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" /></a>
-                        <a href="https://www.youtube.com/@persevcareers6577" target="_blank" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/YouTube_social_red_circle_%282017%29.svg/2048px-YouTube_social_red_circle_%282017%29.svg.png" alt="YouTube" /></a>
+                        <a href="https://www.facebook.com/profile.php?id=61550316355738" target="_blank" rel="noopener noreferrer" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook" /></a>
+                        <a href="https://www.instagram.com/perseverance_institute/" target="_blank" rel="noopener noreferrer" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" /></a>
+                        <a href="https://www.youtube.com/@persevcareers6577" target="_blank" rel="noopener noreferrer" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/YouTube_social_red_circle_%282017%29.svg/2048px-YouTube_social_red_circle_%282017%29.svg.png" alt="YouTube" /></a>
                     </div>
                 </header>
                 <nav>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                     <a href="#featured-courses-section">Courses</a>
                     <div className="dropdown">
-                        <a href="#" id="contact-dropdown-btn">Contact</a>
+                        <a href="#contact" id="contact-dropdown-btn">Contact</a>
                         <div className="dropdown-content">
-                            <a href="#">7075505229</a>
-                            <a href="#">7075506229</a>
+                            <a href="tel:7075505229">7075505229</a>
+                            <a href="tel:7075506229">7075506229</a>
                             <a href="mailto:persevcareers@gmail.com">Email us</a>
                         </div>
                     </div>
                     <a href="#about-section1">About us</a>
                 </nav>
                 <div id="slider-container">
-                    <button id="prevBtn" onClick={prevSlide}>❮</button>
+                    <button id="prevBtn" onClick={prevSlide} aria-label="Previous slide">❮</button>
                     <div id="slider">
                         <div className="slide">
                             <h3>Wanna become a DevOps Engineer ?</h3>
@@ -54,7 +54,7 @@ class App extends courses {
                         </div>
                         {/* Add more slides here */}
                     </div>
-                    <button id="nextBtn" onClick={nextSlide}>❯</button>
+                    <button id="nextBtn" onClick={nextSlide} aria-label="Next slide">❯</button>
                 </div>
                 <section id="why-it-field">
                     <h2 style={{ color: "#000", fontSize: "35px" }}>Why Enter the IT Field</h2>
@@ -82,7 +82,8 @@ class App extends courses {
                                 value={currentTask}
                                 required={true}
                                 onChange={this.handleChange}
-                                placeholder="Add Your Interested Courses" />
+                                placeholder="Add Your Interested Courses"
+                                inputProps={{ "aria-label": "Add Your Interested Courses" }} />
                             <Button className="add-task-btn" color="primary" variant="outlined" type="submit">
                                 Add Course
                             </Button>
@@ -93,7 +94,8 @@ class App extends courses {
                                     <Checkbox
                                         checked={task.completed}
                                         onClick={() => this.handleUpdate(task._id)}
-                                        color="primary" />
+                                        color="primary"
+                                        inputProps={{ "aria-label": "Mark course as interested" }} />
                                     <div className={task.completed ? "task-text completed" : "task-text"}>
                                         {task.task}
                                     </div>
@@ -189,15 +191,15 @@ class App extends courses {
                     {/* Enroll Now Section */}
                     <div className="enroll-now">
                         <h3 style={{ color: "#fff", fontSize: "35px" }}>Ready to start your Journey ?</h3>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHmHRFGU4ZkpsoFYM-gNKrPB4cXeDfpmxNvyE2iY-lZ9PcYg/viewform" className="enroll-btn" target="_blank">Enroll Now</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfHmHRFGU4ZkpsoFYM-gNKrPB4cXeDfpmxNvyE2iY-lZ9PcYg/viewform" className="enroll-btn" target="_blank" rel="noopener noreferrer">Enroll Now</a>
                     </div>
                     {/* Follow Us Section */}
                     <div id="follow-us-section">
                         <h3>Follow Us</h3>
                         <div className="social-buttons">
-                            <a href="https://www.facebook.com/profile.php?id=61550316355738" target="_blank" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook" /></a>
-                            <a href="https://www.instagram.com/perseverance_institute/" target="_blank" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" /></a>
-                            <a href="https://www.youtube.com/@persevcareers6577" target="_blank" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/YouTube_social_red_circle_%282017%29.svg/2048px-YouTube_social_red_circle_%282017%29.svg.png" alt="YouTube" /></a>
+                            <a href="https://www.facebook.com/profile.php?id=61550316355738" target="_blank" rel="noopener noreferrer" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="Facebook" /></a>
+                            <a href="https://www.instagram.com/perseverance_institute/" target="_blank" rel="noopener noreferrer" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1200px-Instagram_logo_2022.svg.png" alt="Instagram" /></a>
+                            <a href="https://www.youtube.com/@persevcareers6577" target="_blank" rel="noopener noreferrer" className="social-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/YouTube_social_red_circle_%282017%29.svg/2048px-YouTube_social_red_circle_%282017%29.svg.png" alt="YouTube" /></a>
                         </div>
                     </div>
                 </div>
