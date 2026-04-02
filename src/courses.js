@@ -14,7 +14,7 @@ class courses extends Component {
             const { data } = await getTasks();
             this.setState({ tasks: data });
         } catch (error) {
-            console.log(error);
+            console.error("Failed to fetch tasks:", error);
         }
     }
 
@@ -27,11 +27,11 @@ class courses extends Component {
         const originalTasks = this.state.tasks;
         try {
             const { data } = await addTask({ task: this.state.currentTask });
-            const tasks = originalTasks;
+            const tasks = [...originalTasks];
             tasks.push(data);
             this.setState({ tasks, currentTask: "" });
         } catch (error) {
-            console.log(error);
+            console.error("Failed to add task:", error);
         }
     };
 
@@ -48,7 +48,7 @@ class courses extends Component {
             });
         } catch (error) {
             this.setState({ tasks: originalTasks });
-            console.log(error);
+            console.error("Failed to update task:", error);
         }
     };
 
@@ -62,7 +62,7 @@ class courses extends Component {
             await deleteTask(currentTask);
         } catch (error) {
             this.setState({ tasks: originalTasks });
-            console.log(error);
+            console.error("Failed to delete task:", error);
         }
     };
 }
