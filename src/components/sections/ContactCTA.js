@@ -43,7 +43,7 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
                   <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSfHmHRFGU4ZkpsoFYM-gNKrPB4cXeDfpmxNvyE2iY-lZ9PcYg/viewform"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="group inline-flex items-center justify-center bg-accent text-navy-900 font-black px-14 py-6 rounded-2xl hover:shadow-[0_20px_50px_-5px_rgba(100,255,218,0.5)] transform hover:-translate-y-3 transition-all text-xl uppercase tracking-widest"
                   >
                     Apply Now <span className="ml-4 group-hover:translate-x-2 transition-transform"><ExternalLinkIcon /></span>
@@ -61,7 +61,9 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
 
                 <form onSubmit={handleSubmit} className="mb-16">
                   <div className="relative group">
+                    <label htmlFor="interest-input" className="sr-only">Interest List</label>
                     <input
+                      id="interest-input"
                       type="text"
                       value={currentTask}
                       onChange={handleChange}
@@ -113,7 +115,7 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
                           <button
                             onClick={() => handleDelete(task._id)}
                             aria-label="Delete Interest"
-                            className="text-white/10 hover:text-red-500 p-3 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500/10 rounded-xl"
+                            className="text-white/10 hover:text-red-500 p-3 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-all hover:bg-red-500/10 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                           >
                             <Trash2Icon />
                           </button>
