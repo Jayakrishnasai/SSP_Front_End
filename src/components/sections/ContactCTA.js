@@ -55,15 +55,21 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
                 className="bg-white/5 backdrop-blur-xl rounded-[3rem] p-12 md:p-16 border border-white/10 shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-2 h-full bg-accent/30"></div>
-                <h4 className="text-3xl font-black text-white mb-12 tracking-tighter flex items-center">
+                <h4 id="interest-list-heading" className="text-3xl font-black text-white mb-12 tracking-tighter flex items-center">
                    Enrollment Interest List
                 </h4>
 
                 <form onSubmit={handleSubmit} className="mb-16">
                   <div className="relative group">
+======== palette-navigation-accessibility-16117019962139993617
+                    <label htmlFor="course-interest" className="sr-only">Course Interest</label>
+                    <input
+                      id="course-interest"
+=======
                     <label htmlFor="interest-input" className="sr-only">Interest List</label>
                     <input
                       id="interest-input"
+======== main
                       type="text"
                       value={currentTask}
                       onChange={handleChange}

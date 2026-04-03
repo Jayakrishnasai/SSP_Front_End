@@ -99,7 +99,12 @@ const Header = () => {
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+======== palette-navigation-accessibility-16117019962139993617
+            aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
+            aria-expanded={isMobileMenuOpen}
+=======
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+======== main
             className={`p-2 rounded-xl transition-colors ${isScrolled ? 'text-navy-900 dark:text-white' : 'text-white bg-white/10'}`}
           >
             {isMobileMenuOpen ? <XIcon /> : <MenuIcon />}
