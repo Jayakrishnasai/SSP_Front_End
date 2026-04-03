@@ -1,25 +1,23 @@
 import React from "react";
-import { Paper, TextField, Checkbox, Button } from "@material-ui/core"; 
 import courses from "./courses";
+import PageShell from "./components/layout/PageShell";
+import Hero from "./components/sections/Hero";
+import StatsStrip from "./components/sections/StatsStrip";
+import LeadershipGrid from "./components/sections/LeadershipGrid";
+import FeatureGrid from "./components/sections/FeatureGrid";
+import ProgramCard from "./components/sections/ProgramCard";
+import TestimonialCarousel from "./components/sections/TestimonialCarousel";
+import SuccessStoryGrid from "./components/sections/SuccessStoryGrid";
+import ContactCTA from "./components/sections/ContactCTA";
 import "./App.css";
-  
-
-function prevSlide() {
-    const slider = document.getElementById("slider");
-    slider.scrollLeft -= slider.offsetWidth;
-}
-
-function nextSlide() {
-    const slider = document.getElementById("slider");
-    slider.scrollLeft += slider.offsetWidth;
-}
+import "./tailwind-output.css";
 
 class App extends courses {
-    state = { tasks: [], currentTask: "" };
-
     render() {
         const { tasks, currentTask } = this.state;
+
         return (
+=========== palette-ux-accessibility-improvements-1834792126481365284
             <div className="app">
                 <header className="app-header">
                     <header className="header-container">
@@ -204,6 +202,25 @@ class App extends courses {
                     </div>
                 </div>
             </div>
+=======
+            <PageShell>
+                <Hero />
+                <ProgramCard />
+                <StatsStrip />
+                <FeatureGrid />
+                <LeadershipGrid />
+                <TestimonialCarousel />
+                <SuccessStoryGrid />
+                <ContactCTA
+                    tasks={tasks}
+                    currentTask={currentTask}
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                    handleUpdate={this.handleUpdate}
+                    handleDelete={this.handleDelete}
+                />
+            </PageShell>
+======= main
         );
     }
 }
