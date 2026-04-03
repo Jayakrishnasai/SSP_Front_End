@@ -61,9 +61,15 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
 
                 <form onSubmit={handleSubmit} className="mb-16">
                   <div className="relative group">
+======== palette-navigation-accessibility-16117019962139993617
                     <label htmlFor="course-interest" className="sr-only">Course Interest</label>
                     <input
                       id="course-interest"
+=======
+                    <label htmlFor="interest-input" className="sr-only">Interest List</label>
+                    <input
+                      id="interest-input"
+======== main
                       type="text"
                       value={currentTask}
                       onChange={handleChange}
@@ -115,7 +121,7 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
                           <button
                             onClick={() => handleDelete(task._id)}
                             aria-label="Delete Interest"
-                            className="text-white/10 hover:text-red-500 p-3 opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500/10 rounded-xl"
+                            className="text-white/10 hover:text-red-500 p-3 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-all hover:bg-red-500/10 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                           >
                             <Trash2Icon />
                           </button>

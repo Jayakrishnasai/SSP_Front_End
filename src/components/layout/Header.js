@@ -52,10 +52,14 @@ const Header = () => {
       isScrolled ? 'bg-white/90 dark:bg-navy-900/90 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-6'
     }`}>
       <div className="container mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+        <button
+          className="flex items-center space-x-3 group cursor-pointer"
+          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          aria-label="Back to top"
+        >
           <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center font-black text-navy-900 transform group-hover:rotate-12 transition-transform shadow-lg shadow-accent/20">P</div>
           <span className={`text-2xl font-black tracking-tighter ${isScrolled ? 'text-navy-900 dark:text-white' : 'text-white'}`}>Perseverance</span>
-        </div>
+        </button>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center space-x-10">
@@ -95,8 +99,12 @@ const Header = () => {
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+======== palette-navigation-accessibility-16117019962139993617
             aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
             aria-expanded={isMobileMenuOpen}
+=======
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+======== main
             className={`p-2 rounded-xl transition-colors ${isScrolled ? 'text-navy-900 dark:text-white' : 'text-white bg-white/10'}`}
           >
             {isMobileMenuOpen ? <XIcon /> : <MenuIcon />}
