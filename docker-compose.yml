@@ -1,0 +1,56 @@
+services:
+  # 🍃 MongoDB Service
+  mongodb:
+    image: mongo:4.4.6
+    container_name: mongodb-server
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - ssp-network
+
+  # ⚙️ Backend API Service
+  backend-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend-api
+    restart: always
+    depends_on:
+      - mongodb
+    environment:
+      - PORT=3100
+      - DB_CONN_STR=mongodb://admin:password123@mongodb:27017/perseverance?authSource=admin
+      - DB_USERNAME=admin
+      - DB_PASSWORD=password123
+      - USE_DB_AUTH=true
+    ports:
+      - "3100:3100"
+    networks:
+      - ssp-network
+
+  # 🌐 Frontend Web App Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend-webapp
+    restart: always
+    depends_on:
+      - backend-api
+    ports:
+      - "8080:80"
+    networks:
+      - ssp-network
+
+networks:
+  ssp-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
