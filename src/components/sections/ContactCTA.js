@@ -43,7 +43,7 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
                   <a
                     href="https://docs.google.com/forms/d/e/1FAIpQLSfHmHRFGU4ZkpsoFYM-gNKrPB4cXeDfpmxNvyE2iY-lZ9PcYg/viewform"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="group inline-flex items-center justify-center bg-accent text-navy-900 font-black px-14 py-6 rounded-2xl hover:shadow-[0_20px_50px_-5px_rgba(100,255,218,0.5)] transform hover:-translate-y-3 transition-all text-xl uppercase tracking-widest"
                   >
                     Apply Now <span className="ml-4 group-hover:translate-x-2 transition-transform"><ExternalLinkIcon /></span>
@@ -55,13 +55,15 @@ const ContactCTA = ({ tasks, currentTask, handleChange, handleSubmit, handleUpda
                 className="bg-white/5 backdrop-blur-xl rounded-[3rem] p-12 md:p-16 border border-white/10 shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-2 h-full bg-accent/30"></div>
-                <h4 className="text-3xl font-black text-white mb-12 tracking-tighter flex items-center">
+                <h4 id="interest-list-heading" className="text-3xl font-black text-white mb-12 tracking-tighter flex items-center">
                    Enrollment Interest List
                 </h4>
 
                 <form onSubmit={handleSubmit} className="mb-16">
                   <div className="relative group">
+                    <label htmlFor="course-interest" className="sr-only">Course Interest</label>
                     <input
+                      id="course-interest"
                       type="text"
                       value={currentTask}
                       onChange={handleChange}

@@ -88,12 +88,15 @@ const Header = () => {
         <div className="md:hidden flex items-center space-x-4 relative z-[60]">
           <button
             onClick={toggleDarkMode}
+            aria-label="Toggle Dark Mode"
             className={`p-2 rounded-xl ${isScrolled ? 'text-navy-900 dark:text-white' : 'text-white'}`}
           >
             {isDarkMode ? <SunIcon /> : <MoonIcon />}
           </button>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close Menu" : "Open Menu"}
+            aria-expanded={isMobileMenuOpen}
             className={`p-2 rounded-xl transition-colors ${isScrolled ? 'text-navy-900 dark:text-white' : 'text-white bg-white/10'}`}
           >
             {isMobileMenuOpen ? <XIcon /> : <MenuIcon />}
