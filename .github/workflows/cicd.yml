@@ -1,4 +1,4 @@
-name: Build
+name: CI/CD Production Pipeline
 
 on:
   push:
@@ -8,21 +8,41 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  sonarqube:
-    name: SonarQube
+  sonar-analysis:
+    name: SonarQube Analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
+          fetch-depth: 0 # Full history needed for SonarCloud analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: |
+          cd frontend && npm install
+          cd ../backend && npm install
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v3
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+
+      - name: SonarQube Quality Gate Check
+        # continue-on-error: true # Uncomment if you want to deploy even if quality gate fails
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
-    name: Deploy to EC2
-    needs: sonarqube
+    name: Deploy to AWS EC2
+    needs: sonar-analysis
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -33,15 +53,18 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Navigate to project directory
+            # Navigate to the project directory on EC2
             cd ~/SSP_MERN_Project
             
-            # Pull latest changes
+            # Update code from the 'main' branch
             git pull origin main
             
-            # Update and build containers
+            # Rebuild and restart the containerized services
             docker-compose down
             docker-compose up -d --build
             
-            # Verify status
+            # Prune unused images to save space
+            docker image prune -f
+            
+            # Output final container status
             docker ps
