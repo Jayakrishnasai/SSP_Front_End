@@ -128,7 +128,12 @@ const SuccessStoryGrid = ({ stories = [
                 className={`transition-all duration-500 rounded-full ${
                   activeIndex === stories.indexOf(story) ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
                 }`}
+ ====== palette/accessibility-enhancements-17351135425696343601
+                aria-label={`Go to slide ${i + 1}`}
+                aria-current={activeIndex === i ? "true" : "false"}
+=======
                 aria-label={`Go to slide ${stories.indexOf(story) + 1}`}
+====== main
               />
             ))}
           </div>
