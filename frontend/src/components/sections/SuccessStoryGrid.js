@@ -129,6 +129,7 @@ const SuccessStoryGrid = ({ stories = [
                   activeIndex === i ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
+                aria-current={activeIndex === i ? "true" : "false"}
               />
             ))}
           </div>
