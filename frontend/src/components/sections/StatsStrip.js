@@ -14,9 +14,9 @@ const StatsStrip = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
-          {stats.map((stat, idx) => (
+          {stats.map((stat) => (
             <div
-              key={idx}
+              key={stat.label}
               className="text-center group hover:scale-105 transition-transform duration-700"
             >
               <div className="inline-block px-3 py-1 bg-accent/10 rounded-full mb-4 border border-accent/20 shadow-xl shadow-accent/5 opacity-0 group-hover:opacity-100 transition-opacity">

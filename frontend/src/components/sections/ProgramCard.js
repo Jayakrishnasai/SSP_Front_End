@@ -33,8 +33,8 @@ const ProgramCard = () => {
           centered
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {programs.map((program, idx) => (
-            <Card key={idx} className="group !p-0 border border-gray-100/50 dark:border-navy-800 hover:border-accent/40 dark:hover:border-accent/40 relative overflow-hidden bg-white dark:bg-navy-800 shadow-2xl shadow-gray-200/50 dark:shadow-none hover:-translate-y-2 transition-all duration-700">
+          {programs.map((program) => (
+            <Card key={program.name} className="group !p-0 border border-gray-100/50 dark:border-navy-800 hover:border-accent/40 dark:hover:border-accent/40 relative overflow-hidden bg-white dark:bg-navy-800 shadow-2xl shadow-gray-200/50 dark:shadow-none hover:-translate-y-2 transition-all duration-700">
               <div className="p-6">
                 <div className="flex justify-between items-start mb-6">
                   <div className={`w-10 h-10 rounded-xl bg-gray-50 dark:bg-navy-900 flex items-center justify-center transform group-hover:-rotate-6 transition-transform shadow-xl`}>
