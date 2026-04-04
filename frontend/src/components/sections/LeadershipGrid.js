@@ -18,8 +18,8 @@ const LeadershipGrid = () => {
           centered
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {leaders.map((leader, idx) => (
-            <AvatarCard key={idx} {...leader} />
+          {leaders.map((leader) => (
+            <AvatarCard key={leader.name} {...leader} />
           ))}
         </div>
       </div>

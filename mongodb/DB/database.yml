@@ -5,7 +5,7 @@ metadata:
   name: db-secret
 type: Opaque
 data:  
-  password: cGFzc3dvcmQxMjM=
+  db_pass: cGFzc3dvcmQxMjM=
   username: YWRtaW4=
 ---
 apiVersion: apps/v1
@@ -23,9 +23,19 @@ spec:
       labels: 
         app: mongodb
     spec: 
+      automountServiceAccountToken: false
       containers:
       - name: mongo-cont
         image: mongo:4.4.6
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+            ephemeral-storage: "2Gi"
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+            ephemeral-storage: "5Gi"
         command:
             - "numactl"
             - "--interleave=all"
@@ -46,7 +56,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: db-secret
-                key: password
+                key: db_pass
         volumeMounts:
         - name: mongo-data
           mountPath: /data/db

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Button = ({ children, variant = 'primary', className = '', ...props }) => {
   const baseStyles = 'px-6 py-3 rounded-xl font-bold transition-all duration-300 inline-flex items-center justify-center relative overflow-hidden';
@@ -18,6 +19,12 @@ const Button = ({ children, variant = 'primary', className = '', ...props }) => 
       {children}
     </button>
   );
+};
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'outline', 'accent']),
+  className: PropTypes.string,
 };
 
 export default Button;
