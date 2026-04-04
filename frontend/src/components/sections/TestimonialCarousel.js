@@ -19,13 +19,13 @@ const TestimonialCarousel = () => {
         </div>
 
         <div className="flex flex-wrap -mx-4">
-          {testimonials.map((t) => (
-            <div key={t.name} className="w-full md:w-1/3 px-4 mb-8">
+          {testimonials.map((t, idx) => (
+            <div key={idx} className="w-full md:w-1/3 px-4 mb-8">
               <div className="h-full !p-8 border-none bg-white dark:bg-navy-800 shadow-2xl flex flex-col justify-between hover:-translate-y-2 transition-all duration-700 rounded-3xl relative group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-full pointer-events-none"></div>
                 <div className="mb-8 relative z-10">
                   <div className="flex text-accent mb-6 space-x-1">
-                    {[1,2,3,4,5].map(star => <span key={star} className="text-lg drop-shadow-md">★</span>)}
+                    {[1,2,3,4,5].map(i => <span key={i} className="text-lg drop-shadow-md">★</span>)}
                   </div>
                   <p className="text-gray-600 dark:text-gray-400 mb-6 text-base font-medium leading-relaxed italic opacity-90 group-hover:opacity-100 transition-opacity">"{t.quote}"</p>
                 </div>

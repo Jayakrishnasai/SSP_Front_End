@@ -11,37 +11,21 @@ jobs:
   sonar-analysis:
     name: SonarQube Analysis
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Full history needed for SonarCloud analysis
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install Frontend Dependencies
-        working-directory: ./frontend
-        run: npm ci
-
-      - name: Install Backend Dependencies
-        working-directory: ./backend
-        run: npm ci
-
-      - name: Build Frontend
-        working-directory: ./frontend
-        run: npm run build
-
-      - name: Build Backend (if applicable)
-        working-directory: ./backend
+      - name: Install Dependencies
         run: |
-          if [ -f package.json ]; then
-            npm run build || echo "No backend build step defined"
-          fi
+          cd frontend && npm install
+          cd ../backend && npm install
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v3
@@ -50,7 +34,8 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
 
       - name: SonarQube Quality Gate Check
-        uses: sonarsource/sonarqube-quality-gate-action@v1.1.0
+        # continue-on-error: true # Uncomment if you want to deploy even if quality gate fails
+        uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -60,35 +45,26 @@ jobs:
     needs: sonar-analysis
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            set -e
-
-            echo "🚀 Starting deployment..."
-
+            # Navigate to the project directory on EC2
             cd ~/SSP_MERN_Project
 
-            echo "📥 Pulling latest code..."
-            git fetch origin
-            git reset --hard origin/main
+            # Update code from the 'main' branch
+            git pull origin main
 
-            echo "🛑 Stopping existing containers..."
+            # Rebuild and restart the containerized services
             docker-compose down
-
-            echo "🔨 Rebuilding and starting containers..."
             docker-compose up -d --build
 
-            echo "🧹 Cleaning unused Docker images..."
+            # Prune unused images to save space
             docker image prune -f
 
-            echo "📦 Current running containers:"
+            # Output final container status
             docker ps
-
-            echo "✅ Deployment completed successfully"

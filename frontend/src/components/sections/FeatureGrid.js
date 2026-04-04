@@ -23,8 +23,8 @@ const FeatureGrid = () => {
           centered
         />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature) => (
-            <Card key={feature.title} className="!p-10 border-none !bg-white dark:!bg-navy-800 shadow-2xl group hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-700 rounded-[2rem] relative overflow-hidden">
+          {features.map((feature, idx) => (
+            <Card key={idx} className="!p-10 border-none !bg-white dark:!bg-navy-800 shadow-2xl group hover:shadow-blue-500/10 hover:-translate-y-2 transition-all duration-700 rounded-[2rem] relative overflow-hidden">
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-gray-50 dark:bg-navy-900 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
               <div className="text-4xl mb-8 transform group-hover:scale-110 group-hover:-rotate-6 transition-transform duration-700 relative z-10">
                 {feature.icon}

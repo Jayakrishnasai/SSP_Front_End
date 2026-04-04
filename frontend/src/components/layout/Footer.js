@@ -21,7 +21,7 @@ const Footer = () => {
                 { name: 'YT', url: 'https://www.youtube.com/@ssptechedu' }
               ].map((social, i) => (
                 <a
-                  key={social.name}
+                  key={i}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -51,7 +51,7 @@ const Footer = () => {
                 { label: 'Mail', text: 'persevcareers@gmail.com' },
                 { label: 'Pin', text: 'Tirupati, AP, India' },
               ].map((item, i) => (
-                <li key={item.label} className="flex flex-col space-y-1">
+                <li key={i} className="flex flex-col space-y-1">
                   <span className="text-blue-600 dark:text-accent font-black text-[10px] uppercase tracking-widest">{item.label}</span>
                   <span className="text-gray-500 dark:text-gray-400 font-medium text-lg">{item.text}</span>
                 </li>

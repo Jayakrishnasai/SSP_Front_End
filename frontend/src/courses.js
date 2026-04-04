@@ -1,6 +1,70 @@
-// This file has been deprecated and its logic was merged into App.js
-// You can safely delete this file whenever you like.
+import { Component } from "react";
+import {
+    addTask,
+    getTasks,
+    updateTask,
+    deleteTask,
+} from "./services/taskServices";
 
-export default function Courses() {
-  return null;
+class courses extends Component {
+    state = { tasks: [], currentTask: "" };
+
+    async componentDidMount() {
+        try {
+            const { data } = await getTasks();
+            this.setState({ tasks: data });
+        } catch (error) {
+            console.error("Failed to fetch tasks:", error);
+        }
+    }
+
+    handleChange = ({ currentTarget: input }) => {
+        this.setState({ currentTask: input.value });
+    };
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const originalTasks = this.state.tasks;
+        try {
+            const { data } = await addTask({ task: this.state.currentTask });
+            const tasks = [...originalTasks];
+            tasks.push(data);
+            this.setState({ tasks, currentTask: "" });
+        } catch (error) {
+            console.error("Failed to add task:", error);
+        }
+    };
+
+    handleUpdate = async (currentTask) => {
+        const originalTasks = this.state.tasks;
+        try {
+            const tasks = [...originalTasks];
+            const index = tasks.findIndex((task) => task._id === currentTask);
+            tasks[index] = { ...tasks[index] };
+            tasks[index].completed = !tasks[index].completed;
+            this.setState({ tasks });
+            await updateTask(currentTask, {
+                completed: tasks[index].completed,
+            });
+        } catch (error) {
+            this.setState({ tasks: originalTasks });
+            console.error("Failed to update task:", error);
+        }
+    };
+
+    handleDelete = async (currentTask) => {
+        const originalTasks = this.state.tasks;
+        try {
+            const tasks = originalTasks.filter(
+                (task) => task._id !== currentTask
+            );
+            this.setState({ tasks });
+            await deleteTask(currentTask);
+        } catch (error) {
+            this.setState({ tasks: originalTasks });
+            console.error("Failed to delete task:", error);
+        }
+    };
 }
+
+export default courses;

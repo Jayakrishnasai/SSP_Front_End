@@ -74,7 +74,7 @@ const SuccessStoryGrid = ({ stories = [
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
               {stories.map((story, idx) => (
-                <div key={story.student} className="w-full flex-shrink-0 px-4">
+                <div key={idx} className="w-full flex-shrink-0 px-4">
                   <div className={`group relative bg-gray-50 dark:bg-navy-800 rounded-[2.5rem] shadow-2xl overflow-hidden transition-all duration-700 p-10 md:p-16 text-center ${activeIndex === idx ? 'scale-100 opacity-100' : 'scale-95 opacity-40 blur-[2px]'}`}>
                     
                     {/* Centered Avatar UI Unified with rest of site */}
@@ -121,19 +121,14 @@ const SuccessStoryGrid = ({ stories = [
 
           {/* Pagination Indicators */}
           <div className="flex justify-center mt-12 space-x-3">
-            {stories.map((story) => (
+            {stories.map((_, i) => (
               <button
-                key={story.student}
-                onClick={() => setActiveIndex(stories.indexOf(story))}
+                key={i}
+                onClick={() => setActiveIndex(i)}
                 className={`transition-all duration-500 rounded-full ${
-                  activeIndex === stories.indexOf(story) ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
+                  activeIndex === i ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
                 }`}
- ====== palette/accessibility-enhancements-17351135425696343601
                 aria-label={`Go to slide ${i + 1}`}
-                aria-current={activeIndex === i ? "true" : "false"}
-=======
-                aria-label={`Go to slide ${stories.indexOf(story) + 1}`}
-====== main
               />
             ))}
           </div>

@@ -15,20 +15,10 @@ spec:
       labels:
         role: frontend
     spec:
-      automountServiceAccountToken: false
       containers:
       - name: frontend
         image:  devline.azurecr.io/perseverance-project:VERSION
         imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: "50m"
-            memory: "64Mi"
-            ephemeral-storage: "512Mi"
-          limits:
-            cpu: "200m"
-            memory: "128Mi"
-            ephemeral-storage: "1Gi"
         ports:
         - containerPort: 3000
       imagePullSecrets:
