@@ -53,14 +53,14 @@ const SuccessStoryGrid = ({ stories = [
           <div className="absolute -left-4 md:-left-20 top-1/2 -translate-y-1/2 z-20 flex flex-col space-y-4">
              <button 
               onClick={handlePrev}
-              className="w-12 h-12 bg-white dark:bg-navy-800 rounded-2xl shadow-xl flex items-center justify-center text-navy-900 dark:text-white hover:bg-accent hover:text-navy-900 transition-all border border-gray-100 dark:border-white/5 active:scale-90"
+              className="w-12 h-12 bg-white dark:bg-navy-800 rounded-2xl shadow-xl flex items-center justify-center text-navy-900 dark:text-white hover:bg-accent hover:text-navy-900 transition-all border border-gray-100 dark:border-white/5 active:scale-90 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               aria-label="Previous Slide"
              >
                 <ArrowLeft />
              </button>
              <button 
               onClick={handleNext}
-              className="w-12 h-12 bg-navy-900 dark:bg-accent rounded-2xl shadow-xl flex items-center justify-center text-white dark:text-navy-900 hover:scale-110 transition-all active:scale-90"
+              className="w-12 h-12 bg-navy-900 dark:bg-accent rounded-2xl shadow-xl flex items-center justify-center text-white dark:text-navy-900 hover:scale-110 transition-all active:scale-90 focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none"
               aria-label="Next Slide"
              >
                 <ArrowRight />
@@ -121,19 +121,15 @@ const SuccessStoryGrid = ({ stories = [
 
           {/* Pagination Indicators */}
           <div className="flex justify-center mt-12 space-x-3">
-            {stories.map((story) => (
+            {stories.map((story, i) => (
               <button
                 key={story.student}
-                onClick={() => setActiveIndex(stories.indexOf(story))}
-                className={`transition-all duration-500 rounded-full ${
-                  activeIndex === stories.indexOf(story) ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
+                onClick={() => setActiveIndex(i)}
+                className={`transition-all duration-500 rounded-full focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-none ${
+                  activeIndex === i ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
                 }`}
- ====== palette/accessibility-enhancements-17351135425696343601
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={activeIndex === i ? "true" : "false"}
-=======
-                aria-label={`Go to slide ${stories.indexOf(story) + 1}`}
-====== main
               />
             ))}
           </div>
