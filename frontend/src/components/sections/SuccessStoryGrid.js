@@ -121,19 +121,15 @@ const SuccessStoryGrid = ({ stories = [
 
           {/* Pagination Indicators */}
           <div className="flex justify-center mt-12 space-x-3">
-            {stories.map((story) => (
+            {stories.map((story, i) => (
               <button
                 key={story.student}
-                onClick={() => setActiveIndex(stories.indexOf(story))}
+                onClick={() => setActiveIndex(i)}
                 className={`transition-all duration-500 rounded-full ${
-                  activeIndex === stories.indexOf(story) ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
+                  activeIndex === i ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
                 }`}
- ====== palette/accessibility-enhancements-17351135425696343601
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={activeIndex === i ? "true" : "false"}
-=======
-                aria-label={`Go to slide ${stories.indexOf(story) + 1}`}
-====== main
               />
             ))}
           </div>

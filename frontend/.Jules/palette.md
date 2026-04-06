@@ -37,3 +37,10 @@
 **Learning:** Carousel pagination dots often only provide visual feedback (color changes) for the active slide. Screen reader users cannot determine which slide is currently active without semantic attributes.
 
 **Action:** Use `aria-current="true"` on the indicator button for the active slide and `aria-current="false"` for others to ensure screen readers announce the current state correctly.
+
+---
+
+## 2024-12-24 - [Broken Merge Markers and CI Alignment]
+**Learning:** Broken merge markers can persist in components, leading to broken UI and incorrect logic. Additionally, CI workflows using `npm ci` require explicit cache dependency paths when lockfiles are located in subdirectories to avoid "lockfile not found" errors.
+
+**Action:** Always check for and resolve merge conflict markers. In monorepo-like structures, ensure `.github/workflows` correctly point to lockfiles for dependency caching.
