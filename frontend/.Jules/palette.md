@@ -37,3 +37,10 @@
 **Learning:** Carousel pagination dots often only provide visual feedback (color changes) for the active slide. Screen reader users cannot determine which slide is currently active without semantic attributes.
 
 **Action:** Use `aria-current="true"` on the indicator button for the active slide and `aria-current="false"` for others to ensure screen readers announce the current state correctly.
+
+---
+
+## 2024-12-24 - [Broken Merge Markers in Components]
+**Learning:** Broken merge markers in components can lead to broken UI and incorrect loop logic, which directly impacts accessibility (e.g., incorrect `aria-label` or `aria-current` due to failed index calculation).
+
+**Action:** Always check for and resolve merge conflict markers, ensuring that semantic accessibility attributes are correctly implemented within loops.
