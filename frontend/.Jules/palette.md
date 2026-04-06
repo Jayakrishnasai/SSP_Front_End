@@ -40,7 +40,7 @@
 
 ---
 
-## 2024-12-24 - [Broken Merge Markers in Components]
-**Learning:** Broken merge markers in components can lead to broken UI and incorrect loop logic, which directly impacts accessibility (e.g., incorrect `aria-label` or `aria-current` due to failed index calculation).
+## 2024-12-24 - [Broken Merge Markers and CI Alignment]
+**Learning:** Broken merge markers can persist in components, leading to broken UI and incorrect logic. Additionally, CI workflows using `npm ci` require explicit cache dependency paths when lockfiles are located in subdirectories to avoid "lockfile not found" errors.
 
-**Action:** Always check for and resolve merge conflict markers, ensuring that semantic accessibility attributes are correctly implemented within loops.
+**Action:** Always check for and resolve merge conflict markers. In monorepo-like structures, ensure `.github/workflows` correctly point to lockfiles for dependency caching.
