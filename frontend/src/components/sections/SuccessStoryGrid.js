@@ -19,13 +19,16 @@ const SuccessStoryGrid = ({ stories = [
     { title: 'Full Stack Excellence', student: 'Jaswanth', details: 'Built a solid foundation in web tech and now leading development at a software house.', image: '/images/jaswanth.jpg' },
   ] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % stories.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [stories.length]);
+  }, [stories.length, isPaused]);
 
   const handlePrev = (e) => {
     e.stopPropagation();
@@ -48,19 +51,25 @@ const SuccessStoryGrid = ({ stories = [
           <p className="text-base md:text-lg font-medium max-w-3xl mx-auto text-gray-500 dark:text-gray-400">Personal success stories from students who transformed their careers at SSP.</p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div
+          className="relative max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+        >
           {/* Carousel Buttons */}
           <div className="absolute -left-4 md:-left-20 top-1/2 -translate-y-1/2 z-20 flex flex-col space-y-4">
              <button 
               onClick={handlePrev}
-              className="w-12 h-12 bg-white dark:bg-navy-800 rounded-2xl shadow-xl flex items-center justify-center text-navy-900 dark:text-white hover:bg-accent hover:text-navy-900 transition-all border border-gray-100 dark:border-white/5 active:scale-90"
+              className="w-12 h-12 bg-white dark:bg-navy-800 rounded-2xl shadow-xl flex items-center justify-center text-navy-900 dark:text-white hover:bg-accent hover:text-navy-900 transition-all border border-gray-100 dark:border-white/5 active:scale-90 outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label="Previous Slide"
              >
                 <ArrowLeft />
              </button>
              <button 
               onClick={handleNext}
-              className="w-12 h-12 bg-navy-900 dark:bg-accent rounded-2xl shadow-xl flex items-center justify-center text-white dark:text-navy-900 hover:scale-110 transition-all active:scale-90"
+              className="w-12 h-12 bg-navy-900 dark:bg-accent rounded-2xl shadow-xl flex items-center justify-center text-white dark:text-navy-900 hover:scale-110 transition-all active:scale-90 outline-none focus-visible:ring-2 focus-visible:ring-accent"
               aria-label="Next Slide"
              >
                 <ArrowRight />
@@ -121,19 +130,15 @@ const SuccessStoryGrid = ({ stories = [
 
           {/* Pagination Indicators */}
           <div className="flex justify-center mt-12 space-x-3">
-            {stories.map((story) => (
+            {stories.map((story, i) => (
               <button
                 key={story.student}
-                onClick={() => setActiveIndex(stories.indexOf(story))}
-                className={`transition-all duration-500 rounded-full ${
-                  activeIndex === stories.indexOf(story) ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
+                onClick={() => setActiveIndex(i)}
+                className={`transition-all duration-500 rounded-full outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                  activeIndex === i ? 'w-10 h-1.5 bg-accent' : 'w-2 h-1.5 bg-gray-200 dark:bg-navy-800 hover:bg-accent/40'
                 }`}
- ====== palette/accessibility-enhancements-17351135425696343601
                 aria-label={`Go to slide ${i + 1}`}
                 aria-current={activeIndex === i ? "true" : "false"}
-=======
-                aria-label={`Go to slide ${stories.indexOf(story) + 1}`}
-====== main
               />
             ))}
           </div>

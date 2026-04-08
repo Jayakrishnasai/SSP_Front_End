@@ -37,3 +37,10 @@
 **Learning:** Carousel pagination dots often only provide visual feedback (color changes) for the active slide. Screen reader users cannot determine which slide is currently active without semantic attributes.
 
 **Action:** Use `aria-current="true"` on the indicator button for the active slide and `aria-current="false"` for others to ensure screen readers announce the current state correctly.
+
+---
+
+## 2025-02-26 - [User Control Over Auto-Playing Content]
+**Learning:** Auto-playing carousels can be distracting or difficult to read for some users. Providing a way to pause the animation on hover or focus is a critical accessibility requirement (WCAG 2.2.2).
+
+**Action:** Always implement `onMouseEnter`, `onMouseLeave`, `onFocus`, and `onBlur` handlers to pause/resume auto-playing components.
